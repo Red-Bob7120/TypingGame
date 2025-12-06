@@ -3,6 +3,7 @@ import './App.css'
 
 import HomePage from './pages/Homepage'
 import PracticePage from './pages/PracticePage'
+import ResultPage from './pages/ResultPage';
 
 function Navbar() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/practice" element={<PracticePage />} />
+          <Route path="/result" element={<ResultPage/>}/>
         </Routes>
       </BrowserRouter>
     </>
