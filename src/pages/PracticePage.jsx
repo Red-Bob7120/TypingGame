@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";   
+import { useNavigate } from "react-router-dom";
 import "../styles/PracticePage.css";
 import snippets from "../data/snippets.json";
 import { compareText } from "../utils/compare";
 import { getHighlightedSnippet } from "../utils/highlight";
-import { calculateAccuracy } from "../utils/accuracy";  
+import { calculateAccuracy } from "../utils/accuracy";
+import { saveHistory } from "../utils/history";
 
 function PracticePage() {
-  const navigate = useNavigate();  
+  const navigate = useNavigate();
 
   const [snippet, setSnippet] = useState("");
   const [input, setInput] = useState("");
@@ -28,24 +29,33 @@ function PracticePage() {
       setCorrect(result.correct);
       setWrong(result.wrong);
 
-      setAccuracy(calculateAccuracy(result.correct, result.wrong));
+      const acc = calculateAccuracy(result.correct, result.wrong);
+      setAccuracy(acc);
 
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
 
-
       if (input.length === snippet.length) {
+        saveHistory({
+          correct: result.correct,
+          wrong: result.wrong,
+          accuracy: acc,
+          snippet: snippet,
+          input: input,
+          timestamp: Date.now(),
+        });
+
         setTimeout(() => {
           navigate("/result", {
             state: {
               correct: result.correct,
               wrong: result.wrong,
-              accuracy: calculateAccuracy(result.correct, result.wrong),
+              accuracy: acc,
               snippet: snippet,
               input: input,
             },
           });
-        }, 800);  
+        }, 800);
       }
     }
   }, [input, snippet]);
@@ -72,7 +82,6 @@ function PracticePage() {
           </span>
         ))}
       </div>
-
 
       <div className="stats-box">
         <p>정답 수: {correct}</p>
