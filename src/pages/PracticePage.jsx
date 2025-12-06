@@ -1,45 +1,63 @@
-import {useEffect,useState} from "react";
-import "../styles/Practicepage.css";
+import { useEffect, useState } from "react";
+import "../styles/PracticePage.css";
 import snippets from "../data/snippets.json";
-import {compareText} from "../utils/compare.js"; 
+import { compareText } from "../utils/compare";
+import { getHighlightedSnippet } from "../utils/highlight";
 
-function PracticePage(){
-    const[snippet,setSnippet] = useState("");
-    const[input,setInput]=useState("");
+function PracticePage() {
+  const [snippet, setSnippet] = useState("");
+  const [input, setInput] = useState("");
+  const [highlighted, setHighlighted] = useState([]);
 
-    useEffect(()=> {
-        const random = snippets[Math.floor(Math.random()*snippets.length)];
-        setSnippet(random.content);
-    },[])
+  useEffect(() => {
+    const random = snippets[Math.floor(Math.random() * snippets.length)];
+    setSnippet(random.content);
+  }, []);
 
-    useEffect(()=>{
-        if(snippet.length >0){
-            const result = compareText(snippet,input);
-            console.log("정답 : ",result.correct,"오타 :",result.wrong);
-        }
-    },[input,snippet]);
-    return(
-        <div className="practice-container">
+  useEffect(() => {
+    if (snippet.length > 0) {
+      const result = compareText(snippet, input);
+      console.log("정답:", result.correct, "오타:", result.wrong);
 
-            <h1 className ="practice-title">Practice Page</h1>
+      const h = getHighlightedSnippet(snippet, input);
+      setHighlighted(h);
+    }
+  }, [input, snippet]);
 
-            <p className="practice-desc">연습용 예문 및 입력창 추가</p>
-            <div className="snippet-box">
-                <pre>{snippet}</pre>
-            </div>
+  return (
+    <div className="practice-container">
+      <h1 className="practice-title">Practice Page</h1>
 
-            <textarea
-                className="input-area"
-                placeholder="여기에 입력해보세요..."
-                onChange={(e)=>setInput(e.target.value)}
-            ></textarea>
+      <p className="practice-desc">실시간 비교 예문:</p>
 
-            <div className="preview-box">
-                <p>현재 입력 내용(테스트 용도):</p>
-                <pre>{input}</pre>
-            </div>
-        </div>
-    )
+      <div className="snippet-box">
+        {highlighted.map((item, idx) => {
+          let style = {};
+
+          if (item.status === "correct") {
+            style = { color: "lime" };          
+          } else if (item.status === "wrong") {
+            style = { color: "red" };           
+          } else {
+            style = { color: "gray" };         
+          }
+
+          return (
+            <span key={idx} style={style}>
+              {item.char}
+            </span>
+          );
+        })}
+      </div>
+
+      <textarea
+        className="input-area"
+        placeholder="여기에 입력해보세요..."
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+      ></textarea>
+    </div>
+  );
 }
 
 export default PracticePage;
