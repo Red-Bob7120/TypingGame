@@ -18,9 +18,20 @@ function PracticePage() {
   const [wrong, setWrong] = useState(0);
   const [accuracy, setAccuracy] = useState(100);
 
+  const [elapsedTime, setElapsedTime] = useState(0);       
+  const [intervalId, setIntervalId] = useState(null);      
+
   useEffect(() => {
     const random = snippets[Math.floor(Math.random() * snippets.length)];
     setSnippet(random.content);
+
+    const id = setInterval(() => {
+      setElapsedTime((prev) => prev + 1);   
+    }, 1000);
+
+    setIntervalId(id);
+
+    return () => clearInterval(id);        
   }, []);
 
   useEffect(() => {
@@ -35,13 +46,17 @@ function PracticePage() {
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
 
+    
       if (input.length === snippet.length) {
-        saveHistory({
+        clearInterval(intervalId);         
+
+        saveHistory({                       
           correct: result.correct,
           wrong: result.wrong,
           accuracy: acc,
           snippet: snippet,
           input: input,
+          elapsedTime: elapsedTime,        
           timestamp: Date.now(),
         });
 
@@ -53,6 +68,7 @@ function PracticePage() {
               accuracy: acc,
               snippet: snippet,
               input: input,
+              elapsedTime: elapsedTime,    
             },
           });
         }, 800);
@@ -87,6 +103,7 @@ function PracticePage() {
         <p>정답 수: {correct}</p>
         <p>오타 수: {wrong}</p>
         <p>정확도: {accuracy}%</p>
+        <p>경과 시간: {elapsedTime}초</p>      
       </div>
 
       <textarea
