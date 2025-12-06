@@ -1,6 +1,7 @@
 import {useEffect,useState} from "react";
 import "../styles/Practicepage.css";
 import snippets from "../data/snippets.json";
+import {compareText} from "../utils/compare.js"; 
 
 function PracticePage(){
     const[snippet,setSnippet] = useState("");
@@ -10,6 +11,13 @@ function PracticePage(){
         const random = snippets[Math.floor(Math.random()*snippets.length)];
         setSnippet(random.content);
     },[])
+
+    useEffect(()=>{
+        if(snippet.length >0){
+            const result = compareText(snippet,input);
+            console.log("정답 : ",result.correct,"오타 :",result.wrong);
+        }
+    },[input,snippet]);
     return(
         <div className="practice-container">
 
