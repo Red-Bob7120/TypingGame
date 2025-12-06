@@ -3,11 +3,16 @@ import "../styles/PracticePage.css";
 import snippets from "../data/snippets.json";
 import { compareText } from "../utils/compare";
 import { getHighlightedSnippet } from "../utils/highlight";
+import { calculateAccuracy } from "../utils/accuracy";
 
 function PracticePage() {
   const [snippet, setSnippet] = useState("");
   const [input, setInput] = useState("");
   const [highlighted, setHighlighted] = useState([]);
+
+  const [correct, setCorrect] = useState(0);
+  const [wrong, setWrong] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
 
   useEffect(() => {
     const random = snippets[Math.floor(Math.random() * snippets.length)];
@@ -17,7 +22,10 @@ function PracticePage() {
   useEffect(() => {
     if (snippet.length > 0) {
       const result = compareText(snippet, input);
-      console.log("정답:", result.correct, "오타:", result.wrong);
+      setCorrect(result.correct);
+      setWrong(result.wrong);
+
+      setAccuracy(calculateAccuracy(result.correct, result.wrong));
 
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
@@ -31,23 +39,27 @@ function PracticePage() {
       <p className="practice-desc">실시간 비교 예문:</p>
 
       <div className="snippet-box">
-        {highlighted.map((item, idx) => {
-          let style = {};
+        {highlighted.map((item, idx) => (
+          <span
+            key={idx}
+            style={
+              item.status === "correct"
+                ? { color: "lime" }
+                : item.status === "wrong"
+                ? { color: "red" }
+                : { color: "gray" }
+            }
+          >
+            {item.char}
+          </span>
+        ))}
+      </div>
 
-          if (item.status === "correct") {
-            style = { color: "lime" };          
-          } else if (item.status === "wrong") {
-            style = { color: "red" };           
-          } else {
-            style = { color: "gray" };         
-          }
-
-          return (
-            <span key={idx} style={style}>
-              {item.char}
-            </span>
-          );
-        })}
+    
+      <div className="stats-box">
+        <p>정답 수: {correct}</p>
+        <p>오타 수: {wrong}</p>
+        <p>정확도: {accuracy}%</p>
       </div>
 
       <textarea
