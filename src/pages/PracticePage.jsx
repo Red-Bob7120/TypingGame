@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";   
 import "../styles/PracticePage.css";
 import snippets from "../data/snippets.json";
 import { compareText } from "../utils/compare";
 import { getHighlightedSnippet } from "../utils/highlight";
-import { calculateAccuracy } from "../utils/accuracy";
+import { calculateAccuracy } from "../utils/accuracy";  
 
 function PracticePage() {
+  const navigate = useNavigate();  
+
   const [snippet, setSnippet] = useState("");
   const [input, setInput] = useState("");
   const [highlighted, setHighlighted] = useState([]);
@@ -29,6 +32,21 @@ function PracticePage() {
 
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
+
+
+      if (input.length === snippet.length) {
+        setTimeout(() => {
+          navigate("/result", {
+            state: {
+              correct: result.correct,
+              wrong: result.wrong,
+              accuracy: calculateAccuracy(result.correct, result.wrong),
+              snippet: snippet,
+              input: input,
+            },
+          });
+        }, 800);  
+      }
     }
   }, [input, snippet]);
 
@@ -55,7 +73,7 @@ function PracticePage() {
         ))}
       </div>
 
-    
+
       <div className="stats-box">
         <p>정답 수: {correct}</p>
         <p>오타 수: {wrong}</p>

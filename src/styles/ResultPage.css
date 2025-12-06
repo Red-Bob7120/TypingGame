@@ -1,0 +1,54 @@
+.result-container {
+  padding: 20px;
+}
+
+
+.result-title {
+  font-size: 28px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+
+.result-stats {
+  background: #333;
+  color: white;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 18px;
+}
+
+
+.result-box {
+  background: #222;
+  color: #eee;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.result-box pre {
+  white-space: pre-wrap;
+  font-family: "Consolas", monospace;
+  font-size: 16px;
+}
+
+.result-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.result-buttons button {
+  padding: 10px 20px;
+  border: none;
+  background: #007aff;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.result-buttons button:hover {
+  background: #005ecb;
+}
