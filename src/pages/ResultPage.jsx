@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/ResultPage.css";
+import {compareResult} from "../utils/compareResult"
 
 function ResultPage() {
   const location = useLocation();
@@ -8,7 +9,7 @@ function ResultPage() {
 const { correct, wrong, accuracy, snippet, input, elapsedTime, wpm } =
   location.state || {};
 
-
+const highlighted = compareResult(snippet,input);
   return (
     <div className="result-container">
       <h1 className="result-title">결과 페이지</h1>
@@ -19,6 +20,23 @@ const { correct, wrong, accuracy, snippet, input, elapsedTime, wpm } =
         <p>정확도: {accuracy}%</p>
         <p>총 걸린 시간: {elapsedTime}초</p>
         <p>WPM: {wpm}</p>
+      </div>
+
+      <div className="result-highlight-box">
+        {highlighted.map((item,idx)=>(
+          <span
+            key={idx}
+              className={
+              item.status === "correct"
+                ? "correct-char"
+                : item.status === "wrong"
+                ? "wrong-char"
+                : "pending-char"
+            }
+            >
+              {item.char === "\n"?<br/> : item.char}
+            </span>
+        ))}
       </div>
 
       <div className="result-box">
