@@ -1,0 +1,19 @@
+.practice-container {
+  padding: 20px;
+}
+
+.practice-title {
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.practice-desc {
+  margin-top: 10px;
+}
+
+.snippet-box {
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
