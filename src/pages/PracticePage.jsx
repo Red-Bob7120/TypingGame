@@ -4,6 +4,7 @@ import "../styles/PracticePage.css";
 import snippets from "../data/snippets.json";
 import { compareText } from "../utils/compare";
 import { getHighlightedSnippet } from "../utils/highlight";
+import {calculateWPM} from "../utils/wpm";
 import { calculateAccuracy } from "../utils/accuracy";
 import { saveHistory } from "../utils/history";
 
@@ -20,6 +21,7 @@ function PracticePage() {
 
   const [elapsedTime, setElapsedTime] = useState(0);       
   const [intervalId, setIntervalId] = useState(null);      
+  const [wpm,setWPM]= useState(0);
 
   useEffect(() => {
     const random = snippets[Math.floor(Math.random() * snippets.length)];
@@ -46,6 +48,9 @@ function PracticePage() {
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
 
+      const typedCharacters= input.lenght;
+      const newWPM = calculateWPM(typedCharacters, elapsedTime);
+      setWPM(newWPM);
     
       if (input.length === snippet.length) {
         clearInterval(intervalId);         
@@ -56,7 +61,8 @@ function PracticePage() {
           accuracy: acc,
           snippet: snippet,
           input: input,
-          elapsedTime: elapsedTime,        
+          elapsedTime: elapsedTime,    
+          wpm : newWPM,    
           timestamp: Date.now(),
         });
 
@@ -68,7 +74,8 @@ function PracticePage() {
               accuracy: acc,
               snippet: snippet,
               input: input,
-              elapsedTime: elapsedTime,    
+              elapsedTime: elapsedTime,   
+              wpm: newWPM, 
             },
           });
         }, 800);
@@ -103,7 +110,8 @@ function PracticePage() {
         <p>정답 수: {correct}</p>
         <p>오타 수: {wrong}</p>
         <p>정확도: {accuracy}%</p>
-        <p>경과 시간: {elapsedTime}초</p>      
+        <p>경과 시간: {elapsedTime}초</p> 
+        <p>현재 WPM : {wpm}</p>     
       </div>
 
       <textarea

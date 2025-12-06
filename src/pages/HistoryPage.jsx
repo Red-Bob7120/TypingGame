@@ -20,6 +20,7 @@ function HistoryPage() {
             <p>
               정답/오타: {item.correct}/{item.wrong}
             </p>
+            <p>WPM: {item.wpm}</p>
             <p>{new Date(item.timestamp).toLocaleString()}</p>
           </li>
         ))}

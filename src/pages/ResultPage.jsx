@@ -5,8 +5,9 @@ function ResultPage() {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const { correct, wrong, accuracy, snippet, input, elapsedTime } =
-    location.state || {};
+const { correct, wrong, accuracy, snippet, input, elapsedTime, wpm } =
+  location.state || {};
+
 
   return (
     <div className="result-container">
@@ -17,6 +18,7 @@ function ResultPage() {
         <p>오타 수: {wrong}</p>
         <p>정확도: {accuracy}%</p>
         <p>총 걸린 시간: {elapsedTime}초</p>
+        <p>WPM: {wpm}</p>
       </div>
 
       <div className="result-box">
