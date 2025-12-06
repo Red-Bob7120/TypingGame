@@ -6,12 +6,112 @@
   },
   {
     "id": 2,
-    "lang": "java",
-    "content": "for (int i = 0; i < 5; i++) {\n  System.out.println(i);\n}"
+    "lang": "javascript",
+    "content": "const greet = (name) => {\n  console.log(`Hello ${name}`);\n};"
   },
   {
     "id": 3,
+    "lang": "javascript",
+    "content": "let counter = 0;\nfor (let i = 0; i < 5; i++) {\n  counter += i;\n}"
+  },
+  {
+    "id": 4,
     "lang": "python",
     "content": "for i in range(5):\n    print(i)"
+  },
+  {
+    "id": 5,
+    "lang": "python",
+    "content": "def multiply(a, b):\n    return a * b"
+  },
+  {
+    "id": 6,
+    "lang": "python",
+    "content": "numbers = [1, 2, 3]\nfor n in numbers:\n    print(n)"
+  },
+  {
+    "id": 7,
+    "lang": "java",
+    "content": "for (int i = 0; i < 10; i++) {\n    System.out.println(i);\n}"
+  },
+  {
+    "id": 8,
+    "lang": "java",
+    "content": "public int sum(int a, int b) {\n    return a + b;\n}"
+  },
+  {
+    "id": 9,
+    "lang": "java",
+    "content": "String name = \"John\";\nSystem.out.println(\"Hello \" + name);"
+  },
+  {
+    "id": 10,
+    "lang": "html",
+    "content": "<div>\n  <p>Hello World</p>\n</div>"
+  },
+  {
+    "id": 11,
+    "lang": "html",
+    "content": "<button onclick=\"alert('Clicked!')\">Click Me</button>"
+  },
+  {
+    "id": 12,
+    "lang": "css",
+    "content": ".container {\n  display: flex;\n  justify-content: center;\n}"
+  },
+  {
+    "id": 13,
+    "lang": "css",
+    "content": "button {\n  background: #007aff;\n  color: white;\n  padding: 10px;\n}"
+  },
+  {
+    "id": 14,
+    "lang": "text",
+    "content": "Practice makes perfect."
+  },
+  {
+    "id": 15,
+    "lang": "text",
+    "content": "Typing quickly requires accuracy and consistency."
+  },
+  {
+    "id": 16,
+    "lang": "text",
+    "content": "JavaScript is a powerful programming language used for web development."
+  },
+  {
+    "id": 17,
+    "lang": "text",
+    "content": "React allows developers to build user interfaces using components."
+  },
+  {
+    "id": 18,
+    "lang": "text",
+    "content": "Writing clean code helps improve software maintainability."
+  },
+  {
+    "id": 19,
+    "lang": "text",
+    "content": "Debugging is an essential skill for any programmer."
+  },
+  {
+    "id": 20,
+    "lang": "text",
+    "content": "Consistency leads to mastery in coding and typing."
+  },
+  {
+    "id": 21,
+    "lang": "javascript",
+    "content": "try {\n  riskyOperation();\n} catch (error) {\n  console.error(error);\n}"
+  },
+  {
+    "id": 22,
+    "lang": "python",
+    "content": "try:\n    process()\nexcept Exception as e:\n    print(e)"
+  },
+  {
+    "id": 23,
+    "lang": "java",
+    "content": "try {\n    run();\n} catch (Exception e) {\n    e.printStackTrace();\n}"
   }
 ]
