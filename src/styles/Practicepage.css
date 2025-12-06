@@ -26,3 +26,11 @@
   border-radius: 8px;
   border: 1px solid #ccc;
 }
+.preview-box {
+  margin-top: 20px;
+  padding: 12px;
+  border: 1px dashed #aaa;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #444;
+}

@@ -4,6 +4,7 @@ import snippets from "../data/snippets.json";
 
 function PracticePage(){
     const[snippet,setSnippet] = useState("");
+    const[input,setInput]=useState("");
 
     useEffect(()=> {
         const random = snippets[Math.floor(Math.random()*snippets.length)];
@@ -22,7 +23,13 @@ function PracticePage(){
             <textarea
                 className="input-area"
                 placeholder="여기에 입력해보세요..."
+                onChange={(e)=>setInput(e.target.value)}
             ></textarea>
+
+            <div className="preview-box">
+                <p>현재 입력 내용(테스트 용도):</p>
+                <pre>{input}</pre>
+            </div>
         </div>
     )
 }
