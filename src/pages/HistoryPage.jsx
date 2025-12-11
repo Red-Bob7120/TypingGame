@@ -17,10 +17,8 @@ function HistoryPage() {
         {records.map((item, idx) => (
           <li key={idx} className="history-item">
             <p>정확도: {item.accuracy}%</p>
-            <p>
-              정답/오타: {item.correct}/{item.wrong}
-            </p>
-            <p>WPM: {item.wpm}</p>
+            <p>정답/오타: {item.correct}/{item.wrong}</p>
+            <p>타속: {item.wpm}타/분</p>
             <p>{new Date(item.timestamp).toLocaleString()}</p>
           </li>
         ))}
