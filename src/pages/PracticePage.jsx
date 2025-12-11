@@ -5,7 +5,7 @@ import snippets from "../data/snippets.json";
 import { compareText } from "../utils/compare";
 import { getHighlightedSnippet } from "../utils/highlight";
 import { calculateAccuracy } from "../utils/accuracy";
-import { calculateWPM } from "../utils/wpm";
+import { calculateCPM } from "../utils/wpm";
 import { saveHistory } from "../utils/history";
 
 function PracticePage() {
@@ -48,9 +48,8 @@ function PracticePage() {
       const h = getHighlightedSnippet(snippet, input);
       setHighlighted(h);
 
-      const typedCharacters = input.length;
-      const newWPM = calculateWPM(typedCharacters, elapsedTime);
-      setWPM(newWPM);
+      const newCPM = calculateCPM(result.correct ?? 0, result.wrong ?? 0, elapsedTime);
+      setWPM(newCPM);
 
       if (input.length === snippet.length) {
         clearInterval(intervalId);
@@ -62,7 +61,7 @@ function PracticePage() {
           snippet: snippet,
           input: input,
           elapsedTime: elapsedTime,
-          wpm: newWPM,
+          wpm: newCPM,
           timestamp: Date.now(),
         });
 
@@ -75,10 +74,10 @@ function PracticePage() {
               snippet: snippet,
               input: input,
               elapsedTime: elapsedTime,
-              wpm: newWPM,
+              wpm: newCPM,
             },
           });
-        }, 700);
+        }, 500);
       }
     }
   }, [input, snippet, elapsedTime]);
@@ -122,7 +121,7 @@ function PracticePage() {
         <p>오타: {wrong}</p>
         <p>정확도: {accuracy}%</p>
         <p>경과 시간: {elapsedTime}초</p>
-        <p>WPM: {wpm}</p>
+        <p>타속: {wpm}타/분</p>
       </div>
 
       <textarea

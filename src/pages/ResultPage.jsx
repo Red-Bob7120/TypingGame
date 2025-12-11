@@ -1,6 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import "../styles/ResultPage.css";
-import { compareResult } from "../utils/compareResult";
 
 function ResultPage() {
   const location = useLocation();
@@ -9,10 +8,8 @@ function ResultPage() {
   const { correct, wrong, accuracy, snippet, input, elapsedTime, wpm } =
     location.state || {};
 
-  const highlighted = compareResult(snippet, input);
-
   return (
-    <div className="result-page-container">
+    <div className="result-container">
       <h1 className="result-title">결과 페이지</h1>
 
       <div className="result-stats">
@@ -20,38 +17,23 @@ function ResultPage() {
         <p>오타 수: {wrong}</p>
         <p>정확도: {accuracy}%</p>
         <p>총 걸린 시간: {elapsedTime}초</p>
-        <p>WPM: {wpm}</p>
+        <p>타속: {wpm}타/분</p>
       </div>
 
       <div className="result-highlight-box">
-        {highlighted.map((item, idx) =>
-          item.char === "\n" ? (
-            <br key={idx} />
-          ) : (
-            <span
-              key={idx}
-              className={
-                item.status === "correct"
-                  ? "correct-char"
-                  : item.status === "wrong"
-                  ? "wrong-char"
-                  : "pending-char"
-              }
-            >
-              {item.char}
-            </span>
-          )
+        {snippet.split("").map((char, idx) =>
+          char === "\n" ? <br key={idx} /> : <span key={idx}>{char}</span>
         )}
       </div>
 
       <div className="result-box">
         <h3>입력한 내용</h3>
-        <pre className="code-content">{input}</pre>
+        <pre>{input}</pre>
       </div>
 
       <div className="result-box">
         <h3>원본 예문</h3>
-        <pre className="code-content">{snippet}</pre>
+        <pre>{snippet}</pre>
       </div>
 
       <div className="result-buttons">
